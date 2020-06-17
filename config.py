@@ -4,6 +4,8 @@
 # @Email   : li.yan_li@neusoft.com
 # @File    : config.py
 # @Software: PyCharm
+import logging
+
 import redis
 
 
@@ -14,7 +16,7 @@ class Config(object):
     DEBUG = True
     # 导入数据库配置
     # 设置数据库连接
-    SQLALCHEMY_DATABASE_URI= 'mysql://root:root@127.0.0.1:3306/information22'
+    SQLALCHEMY_DATABASE_URI= 'mysql://root:root@127.0.0.1:3306/information'
     # 动态追踪设置
     SQLALCHEMY_TRACK_MODUFICATIONS = True
     # 显示原始sql
@@ -28,12 +30,17 @@ class Config(object):
     SESSION_REDIS = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT)  # 使用 redis 的实例
     SESSION_PERMANENT = False
     PERMANENT_SESSION_LIFETIME = 86400  # session 的有效期，单位是秒
+
+    # 日志级别
+    LEVEL = logging.DEBUG
 # 开发环境
 class DevelopConfig(Config):
     pass
 # 生产环境
 class ProductConfig(Config):
     DEBUG = False
+    LEVEL = logging.ERROR
+
 
 # 测试环境
 class TestingConfig(Config):
